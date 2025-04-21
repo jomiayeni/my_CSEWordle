@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified" 
+			attributeFormDefault="unqualified">
+	<xsd:element name="Users">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="User" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name ="User">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="username" type ="xsd:string" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="hashedPassword" type ="xsd:string" minOccurs="1" maxOccurs="1"/>
+				<xsd:element name="role" type ="xsd:string" minOccurs="1" maxOccurs="1"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

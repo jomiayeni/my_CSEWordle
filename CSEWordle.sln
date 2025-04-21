@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleWebApp", "WordleWebApp\WordleWebApp.csproj", "{C02C9F82-8F14-4675-9FA1-D7491D449CD9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28} = {AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationService", "AuthenticationService\AuthenticationService.csproj", "{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Security\Security.csproj", "{4E3994C8-28B1-40A6-B5C0-FC3F828EE01C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleLogic", "WordleLogic\WordleLogic.csproj", "{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C02C9F82-8F14-4675-9FA1-D7491D449CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C02C9F82-8F14-4675-9FA1-D7491D449CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C02C9F82-8F14-4675-9FA1-D7491D449CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C02C9F82-8F14-4675-9FA1-D7491D449CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEDC54E2-B3B0-4C23-8A98-8079EB99EF28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E3994C8-28B1-40A6-B5C0-FC3F828EE01C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E3994C8-28B1-40A6-B5C0-FC3F828EE01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E3994C8-28B1-40A6-B5C0-FC3F828EE01C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E3994C8-28B1-40A6-B5C0-FC3F828EE01C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF1F37F5-4547-42A8-BDAC-9FBCD1BBDF1B}
+	EndGlobalSection
+EndGlobal
