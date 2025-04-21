@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using WordleLogic;
@@ -260,32 +260,33 @@ namespace WordleWebApp
         protected void hintBtn_Click(object sender, EventArgs e)
         {
             string actualWord = (string)Session["ActualWord"];
-            if (string.IsNullOrEmpty(actualWord)) return;
+            HashSet<int> hintPositions = (HashSet<int>)Session["HintPositions"];
 
-            List<string> pastGuesses = (List<string>)Session["PastGuesses"];
+            // Reveal a letter in a random position that hasn't been revealed yet
+            Random rand = new Random();
+            int position = -1;
 
-            // Load or initialize the set of hint positions already revealed
-            HashSet<int> revealedHintPositions = Session["HintPositions"] as HashSet<int>;
-            if (revealedHintPositions == null)
-            {
-                revealedHintPositions = new HashSet<int>();
-            }
-
-            // Try to find a letter in the actual word that hasn't been revealed yet
+            List<int> availablePositions = new List<int>();
             for (int i = 0; i < actualWord.Length; i++)
             {
-                if (!revealedHintPositions.Contains(i))
+                if (!hintPositions.Contains(i))
                 {
-                    char hintChar = actualWord[i];
-                    revealedHintPositions.Add(i); // Track this position as revealeds
-                    Session["HintPositions"] = revealedHintPositions; // Save updated set
-
-                    resultLbl.Text = $"\nHint: The letter at position {i + 1} is '{char.ToUpper(hintChar)}'";
-                    return;
+                    availablePositions.Add(i);
                 }
             }
 
-            resultLbl.Text = "\nAll letters have already been revealed!";
+            if (availablePositions.Count == 0)
+            {
+                resultLbl.Text = "No more hints available!";
+                return;
+            }
+
+            position = availablePositions[rand.Next(availablePositions.Count)];
+            hintPositions.Add(position);
+            Session["HintPositions"] = hintPositions;
+
+            char revealedLetter = actualWord[position];
+            resultLbl.Text = $"Hint: The letter at position {position + 1} is '{char.ToUpper(revealedLetter)}'.";
         }
 
 
