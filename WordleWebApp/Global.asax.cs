@@ -23,12 +23,7 @@ namespace WordleWebApp
             System.Diagnostics.Debug.WriteLine("Wordle Web App started at: " + Application["AppStartTime"]);
         }
 
-        //void Application_End(object sender, EventArgs e)
-        //{
-            // Log last access or shutdown time
-         //   string endMessage = "<hr />This page was last accessed at " + DateTime.Now.ToString();
-        //    System.IO.File.AppendAllText(Server.MapPath("~/App_Data/app_log.txt"), endMessage + Environment.NewLine);
-        //}
+       
 
 
 
