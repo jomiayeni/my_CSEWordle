@@ -1,0 +1,7 @@
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\bin\helper_service.dll.config
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\bin\helper_service.dll
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\bin\helper_service.pdb
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\obj\Debug\helper_service.csproj.AssemblyReference.cache
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\obj\Debug\helper_service.csproj.CoreCompileInputs.cache
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\obj\Debug\helper_service.dll
+C:\Users\Jomi\Downloads\CSEWordle-master (1)\CSEWordle-master\helper_service\obj\Debug\helper_service.pdb
