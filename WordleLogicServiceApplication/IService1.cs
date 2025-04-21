@@ -23,6 +23,9 @@ namespace WordleLogicServiceApplication
         [OperationContract]
         List<WordLetter> ConvertToDisplay(List<WordLetter> guess);
 
+        [OperationContract]
+        string GetHint(string actualWord, List<int> revealedPositions);
+
     }
     [DataContract]
     public class WordLetter
