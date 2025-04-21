@@ -151,5 +151,24 @@ namespace WordleLogicServiceApplication
             }
             return display;
         }
+
+        //Written by Jomi Ayeni
+        public string GetHint(string actualWord, List<int> revealedPositions)
+        {
+            if (string.IsNullOrEmpty(actualWord)) return "No word provided.";
+
+            for (int i = 0; i < actualWord.Length; i++)
+            {
+                if (!revealedPositions.Contains(i))
+                {
+                    revealedPositions.Add(i); 
+                    char hintChar = actualWord[i];
+                    return $"Hint: The letter at position {i + 1} is '{char.ToUpper(hintChar)}'";
+                }
+            }
+
+            return "All letters have already been revealed!";
+        }
+
     }
 }
