@@ -17,8 +17,7 @@ namespace AuthenticationService
         string Login(string username, string password, string userXmlPath);
         [OperationContract]
         string Register(string username, string password, string userXmlPath);
-        [OperationContract]
-        string GetHint(string actualWord, List<int> revealedPositions);
+       
     }
 
 
