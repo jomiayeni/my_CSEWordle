@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Security\Securi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleLogic", "WordleLogic\WordleLogic.csproj", "{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordleLogicServiceApplication", "WordleLogicServiceApplication\WordleLogicServiceApplication.csproj", "{979AF65C-26BC-4776-83B7-90EF3483AD48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00068BD6-BFF0-4B3C-84BC-DB8EDC72BDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{979AF65C-26BC-4776-83B7-90EF3483AD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{979AF65C-26BC-4776-83B7-90EF3483AD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{979AF65C-26BC-4776-83B7-90EF3483AD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{979AF65C-26BC-4776-83B7-90EF3483AD48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
