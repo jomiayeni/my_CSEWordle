@@ -17,8 +17,7 @@ namespace WordleWebApp
 
           
 
-            // Redirect to login or home page
-            //Response.Redirect("~/Login.aspx"); // Or change to Default.aspx if you don't have Login.aspx
+        
         }
     }
 }
