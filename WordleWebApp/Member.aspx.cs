@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.UI;
-using WordleLogic;
+using WordleWebApp.WordleLogicServiceReference;
 
 namespace WordleWebApp
 {
@@ -28,20 +28,22 @@ namespace WordleWebApp
         private void StartNewGame()
         {
             string filePath = Server.MapPath("~/App_Data/words.txt");
-            string generatedWord = Logic.GenerateWord(filePath).ToLower();
+            Service1Client logicClient = new Service1Client();
+            string generatedWord = logicClient.GenerateWord(filePath).ToLower();
+
 
             Session["ActualWord"] = generatedWord;
             Session["CurrentGuessIndex"] = 0;
             Session["PastGuesses"] = new List<string>();
             Session["HintPositions"] = new HashSet<int>();
 
-
             ResetKeyboad();
             keyboardLiteral.Text = BuildKeyboardHTML();
 
-            testLbl.Text = $"(DEBUG) Word: {generatedWord}";
+          //  testLbl.Text = $"(DEBUG) Word: {generatedWord}";
             resultLbl.Text = "";
             guessesPanel.Controls.Clear();
+            submitGuessBtn.Enabled = true;
         }
 
         //Edited by Alex Alvarado 4/14
@@ -59,14 +61,26 @@ namespace WordleWebApp
                 resultLbl.Text = $"No more guesses allowed. The word was {(string)Session["ActualWord"]}.";
                 return;
             }
-            
+
             string userGuess = guessTextBox.Text.Trim().ToLower();
-            if (!Logic.IsValidGuess(Server.MapPath("~/App_Data/words.txt"), userGuess)){
-                
-                resultLbl.Text = "\nYour guess must be a valid word.";
-                return;
+            Service1Client logicClient = new Service1Client();
+            bool validGuess = false;
+            try { 
+                validGuess = logicClient.IsValidGuess(Server.MapPath("~/App_Data/words.txt"), userGuess);
 
             }
+            catch
+            {
+                validGuess = false;
+            }
+
+            if (!validGuess)
+            {
+
+                resultLbl.Text = "Your guess must be a valid word.";
+                return;
+            }
+            
           
 
             if (userGuess.Length != WordLength)
@@ -75,8 +89,8 @@ namespace WordleWebApp
                 return;
             }
             string actualWord = (string)Session["ActualWord"];
-
-            List<WordLetter> guessResult = Logic.WordGuessChecker(userGuess, actualWord);
+            
+            WordLetter[] guessResult = logicClient.WordGuessChecker(userGuess, actualWord);
 
             // Update the keyboard with the new info
             ProcessForKeyboard(guessResult);
@@ -86,7 +100,6 @@ namespace WordleWebApp
             List<string> pastGuesses = (List<string>)Session["PastGuesses"];
             pastGuesses.Add(feedbackHtml);
             Session["PastGuesses"] = pastGuesses;
-            
 
             UpdateGuessesPanel(pastGuesses);
 
@@ -95,7 +108,7 @@ namespace WordleWebApp
 
             if (userGuess == actualWord)
             {
-                resultLbl.Text = "\nCongratulations! You guessed the word correctly.";
+                resultLbl.Text = "Congratulations! You guessed the word correctly.";
                 submitGuessBtn.Enabled = false;
             }
             else if (currentGuessIndex == MaxGuesses)
@@ -111,7 +124,7 @@ namespace WordleWebApp
             guessTextBox.Text = "";
         }
  
-        private string BuildGuessHtml(List<WordLetter> guessResult)
+        private string BuildGuessHtml(WordLetter[] guessResult)
         {
             string html = "<div class='guess-row'>";
             // process all the letters
@@ -138,20 +151,20 @@ namespace WordleWebApp
             }
         }
 
-        private string GetStatusCSSClass(WordleLogic.WordLetter.LetterStatus status)
+        private string GetStatusCSSClass(WordLetter.LetterStatus status)
         {
             // Status will determine css class, mainly affecting background color
             // Correct -> Green, partially correct -> yellow, unknown -> gray, incorrect -> darkgray
             string cssClass = "";
             switch (status)
             {
-                case WordleLogic.WordLetter.LetterStatus.CorrectLetter:
+                case WordLetter.LetterStatus.CorrectLetter:
                     cssClass = "correct-letter";
                     break;
-                case WordleLogic.WordLetter.LetterStatus.CorrectLetterWrongSpot:
+                case WordLetter.LetterStatus.CorrectLetterWrongSpot:
                     cssClass = "correct-letter-wrong-spot";
                     break;
-                case WordleLogic.WordLetter.LetterStatus.IncorrectLetter:
+                case WordLetter.LetterStatus.IncorrectLetter:
                     cssClass = "incorrect-letter";
                     break;
                 default:
@@ -162,14 +175,15 @@ namespace WordleWebApp
         }
 
         // helper function to rank the priority of letter
+        // So we can overwrite letter colors with ones that give more information
         // 
-        private int GetLetterPriority(WordleLogic.WordLetter.LetterStatus status)
+        private int GetLetterPriority(WordLetter.LetterStatus status)
         {
             switch (status)
             {
-                case WordleLogic.WordLetter.LetterStatus.CorrectLetter: return 3;
-                case WordleLogic.WordLetter.LetterStatus.CorrectLetterWrongSpot: return 2; 
-                case WordleLogic.WordLetter.LetterStatus.IncorrectLetter: return 1; 
+                case WordLetter.LetterStatus.CorrectLetter: return 3;
+                case WordLetter.LetterStatus.CorrectLetterWrongSpot: return 2; 
+                case WordLetter.LetterStatus.IncorrectLetter: return 1; 
                 default: return 0;
             }
         }
@@ -186,10 +200,10 @@ namespace WordleWebApp
             };
 
             // Get the dictionary of all the letters and their status
-            Dictionary<char, WordleLogic.WordLetter.LetterStatus> keyboardState = Session["KeyboardState"] as Dictionary<char, WordleLogic.WordLetter.LetterStatus>;
+            Dictionary<char, WordLetter.LetterStatus> keyboardState = Session["KeyboardState"] as Dictionary<char, WordLetter.LetterStatus>;
             if (keyboardState == null)
             {
-                keyboardState = new Dictionary<char, WordleLogic.WordLetter.LetterStatus>();
+                keyboardState = new Dictionary<char, WordLetter.LetterStatus>();
                 Session["KeyboardState"] = keyboardState;
             }
 
@@ -203,10 +217,10 @@ namespace WordleWebApp
                 {
                     // Get the status for each letter
                     // if it hasn't been guessed yet then it remains Unknown.
-                    WordleLogic.WordLetter.LetterStatus status;
+                    WordLetter.LetterStatus status;
                     if (!keyboardState.TryGetValue(char.ToUpper(c), out status))
                     {
-                        status = WordleLogic.WordLetter.LetterStatus.Unknown;
+                        status = WordLetter.LetterStatus.Unknown;
                     }
 
                     string cssClass = GetStatusCSSClass(status);
@@ -219,15 +233,15 @@ namespace WordleWebApp
         }
         private void ResetKeyboad()
         {
-            Session["KeyboardState"] = new Dictionary<char, WordleLogic.WordLetter.LetterStatus>();
+            Session["KeyboardState"] = new Dictionary<char, WordLetter.LetterStatus>();
         }
-        private void ProcessForKeyboard(List<WordLetter> guessResult)
+        private void ProcessForKeyboard(WordLetter[] guessResult)
         {
 
-            Dictionary<char, WordleLogic.WordLetter.LetterStatus> keyboardState = Session["KeyboardState"] as Dictionary<char, WordleLogic.WordLetter.LetterStatus>;
+            Dictionary<char, WordLetter.LetterStatus> keyboardState = Session["KeyboardState"] as Dictionary<char, WordLetter.LetterStatus>;
             if (keyboardState == null)
             {
-                keyboardState = new Dictionary<char, WordleLogic.WordLetter.LetterStatus>();
+                keyboardState = new Dictionary<char, WordLetter.LetterStatus>();
                 Session["KeyboardState"] = keyboardState;
             }
 
@@ -288,8 +302,6 @@ namespace WordleWebApp
             char revealedLetter = actualWord[position];
             resultLbl.Text = $"Hint: The letter at position {position + 1} is '{char.ToUpper(revealedLetter)}'.";
         }
-
-
 
         protected void backButton_Click(object sender, EventArgs e)
         {
